@@ -34,7 +34,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return this.items.get(position).getId();
+        return 0;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ListAdapter extends BaseAdapter {
             view = inflate.inflate(R.layout.item, null);
         }
         TextView name = (TextView) view.findViewById(R.id.txt_name);
-        name.setText(this.items.get(position).getName());
+        name.setText(" " + this.items.get(position).getName());
         return view;
     }
 }

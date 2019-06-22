@@ -5,12 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.usuarios8.Collection.Item;
 import com.example.usuarios8.Collection.ListAdapter;
+import com.example.usuarios8.Collection.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list_data = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://192.168.0.14:8000/users", new JsonHttpResponseHandler(){
+        client.get(Utils.SERVICE, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -49,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for (int i = 0; i < data.length(); i++){
                         Item p = new Item();
                         JSONObject obj = data.getJSONObject(i);
-                        p.id = i;
-                        p.name = " " + obj.getString("name");
+                        p.id = obj.getString("_id");
+                        p.name = obj.getString("name");
                         list_data.add(p);
                     }
                     ListAdapter adapter = new ListAdapter(MainActivity.this, list_data);
@@ -76,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, UpdateDeleteActivity.class);
-        intent.putExtra("id", list_data.get(position).getId());
+        intent.putExtra("id", String.valueOf(list_data.get(position).getId()));
+        intent.putExtra("name", String.valueOf(list_data.get(position).getName()));
         startActivity(intent);
     }
 }

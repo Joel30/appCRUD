@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.usuarios8.Collection.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -32,7 +33,7 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("name", txt_name.getText().toString());
-        client.post("http://192.168.0.14:8000/users", params, new JsonHttpResponseHandler(){
+        client.post(Utils.SERVICE, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 if (response.has("post")){
