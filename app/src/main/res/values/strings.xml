@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Usuarios8</string>
+    <string name="post">Agregar Usuario</string>
+    <string name="patch">Actualizar</string>
+    <string name="delete">Eliminar</string>
+    <string name="send">Enviar</string>
+    <string name="txt_1">Nombre: </string>
+    <string name="txt_name">Nombre</string>
+</resources>
